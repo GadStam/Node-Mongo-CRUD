@@ -1,15 +1,18 @@
-import {Router} from 'express'
-import { MovieController } from '../controllers/movies.js';
+const { Router } = require("express");
+const { MovieController } = require("../controllers/movies");
+const { asyncHandler } = require("../handlers/asyncHandler");
+const { errorHandler } = require("../middleware/errorHandler");
 
-export const moviesRouter = Router();
+const moviesRouter = Router();
 
+moviesRouter.get("/", asyncHandler(MovieController.getAll));
+moviesRouter.get("/:id", asyncHandler(MovieController.getById));
+moviesRouter.put("/:name", asyncHandler(MovieController.getPokemon)); // Para probar axios
+moviesRouter.post("/", asyncHandler(MovieController.create));
+moviesRouter.delete("/:id", asyncHandler(MovieController.delete));
+moviesRouter.patch("/:id", asyncHandler(MovieController.update));
 
-moviesRouter.get("/", MovieController.getAll);
+// Middleware de manejo de errores
+moviesRouter.use(errorHandler);
 
-moviesRouter.get("/:id", MovieController.getById);
-
-moviesRouter.post('/', MovieController.create);
-
-moviesRouter.delete('/:id', MovieController.delete);
-
-moviesRouter.patch('/:id', MovieController.update);
+module.exports = { moviesRouter };
