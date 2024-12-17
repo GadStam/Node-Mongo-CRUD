@@ -1,7 +1,4 @@
-import mongoose from "mongoose";
-
-
-
+const mongoose = require("mongoose");
 
 const movieSchema = new mongoose.Schema({
   titulo: { type: String, required: true },
@@ -10,43 +7,42 @@ const movieSchema = new mongoose.Schema({
   director: { type: String, required: true },
 });
 
-export class MovieModel {
+const Movie = mongoose.model("Movie", movieSchema);
+
+class MovieModel {
   static async getAll({ genero }) {
     const filter = genero ? { genero: { $in: [genero] } } : {};
-    return await mongoose.model("Movie").find(filter);
+    return await Movie.find(filter);
   }
 
   static async getById({ id }) {
-    try{
-        return await mongoose.model("Movie").findById(id);
-    }catch(err){
-        return null;
+    try {
+      return await Movie.findById(id);
+    } catch (err) {
+      return null;
     }
   }
 
   static async create({ input }) {
-    const Movie = mongoose.model("Movie"); // Get the model directly
-    const newMovie = new Movie(input);
-    return await newMovie.save();
+    return await Movie.create(input);
   }
 
   static async delete({ id }) {
-    const result = await mongoose.model("Movie").findByIdAndDelete(id);
-    return result !== null;
+    try {
+      const result = await Movie.findByIdAndDelete(id);
+      return result !== null;
+    } catch (err) {
+      return false;
+    }
   }
 
   static async update({ id, input }) {
-    return await mongoose
-      .model("Movie")
-      .findByIdAndUpdate(id, input, { new: true });
+    try {
+      return await Movie.findByIdAndUpdate(id, input, { new: true }); // Devuelve el documento actualizado
+    } catch (err) {
+      return null;
+    }
   }
 }
 
-// Crear el modelo basado en el esquema
-mongoose.model("Movie", movieSchema);
-
-
-
-
-
-
+module.exports = { MovieModel };

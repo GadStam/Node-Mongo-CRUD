@@ -1,9 +1,9 @@
+const Promise = require("bluebird");
+const { MovieModel } = require("../models/database/movie");
+const { validateMovie, validatePartialMovie } = require("../schemas/movies");
+const axios = require("axios");
 
-import Promise from "bluebird";
-import { MovieModel } from "../models/database/movie.js";
-import { validateMovie, validatePartialMovie } from "../schemas/movies.js";
-
-export class MovieController {
+class MovieController {
   static async getAll(req, res) {
     const { genero } = req.query;
     const movies = await Promise.resolve(MovieModel.getAll({ genero }));
@@ -48,6 +48,23 @@ export class MovieController {
     const updatedMovie = await Promise.resolve(
       MovieModel.update({ id, input: result.data })
     );
+    if (updatedMovie === null) {
+      return res.status(404).json({ error: "Movie not found" });
+    }
     res.json(updatedMovie);
   }
+
+  static async getPokemon(req, res) {
+    const { name } = req.params;
+    try {
+      const pokemon = await axios.get(
+        `https://pokeapi.co/api/v2/pokemon/${name}`
+      );
+      res.json(pokemon.data.types);
+    } catch (error) {
+      res.status(500).json({ error: "Internal server error" });
+    }
+  }
 }
+
+module.exports = { MovieController };
