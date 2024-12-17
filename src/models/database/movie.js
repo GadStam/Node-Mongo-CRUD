@@ -17,7 +17,11 @@ export class MovieModel {
   }
 
   static async getById({ id }) {
-    return await mongoose.model("Movie").findById(id);
+    try{
+        return await mongoose.model("Movie").findById(id);
+    }catch(err){
+        return null;
+    }
   }
 
   static async create({ input }) {

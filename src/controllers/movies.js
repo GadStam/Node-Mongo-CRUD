@@ -1,16 +1,18 @@
+
+import Promise from "bluebird";
 import { MovieModel } from "../models/database/movie.js";
 import { validateMovie, validatePartialMovie } from "../schemas/movies.js";
 
 export class MovieController {
   static async getAll(req, res) {
     const { genero } = req.query;
-    const movies = await MovieModel.getAll({ genero });
+    const movies = await Promise.resolve(MovieModel.getAll({ genero }));
     res.json(movies);
   }
 
   static async getById(req, res) {
     const { id } = req.params;
-    const movie = await MovieModel.getById({ id });
+    const movie = await Promise.resolve(MovieModel.getById({ id }));
     if (!movie) {
       return res.status(404).json({ error: "Movie not found" });
     }
@@ -22,13 +24,15 @@ export class MovieController {
     if (result.error) {
       return res.status(400).json({ error: JSON.parse(result.error.message) });
     }
-    const newMovie = await MovieModel.create({ input: result.data });
+    const newMovie = await Promise.resolve(
+      MovieModel.create({ input: result.data })
+    );
     res.status(201).json(newMovie);
   }
 
   static async delete(req, res) {
     const { id } = req.params;
-    const result = await MovieModel.delete({ id });
+    const result = await Promise.resolve(MovieModel.delete({ id }));
     if (result === false) {
       return res.status(404).json({ error: "Movie not found" });
     }
@@ -41,7 +45,9 @@ export class MovieController {
     if (result.error) {
       return res.status(400).json({ error: JSON.parse(result.error.message) });
     }
-    const updatedMovie = await MovieModel.update({ id, input: result.data });
+    const updatedMovie = await Promise.resolve(
+      MovieModel.update({ id, input: result.data })
+    );
     res.json(updatedMovie);
   }
 }
