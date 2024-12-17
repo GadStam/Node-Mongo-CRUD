@@ -1,6 +1,6 @@
 const Promise = require("bluebird");
 const { MovieModel } = require("../models/database/movie");
-const { validateMovie, validatePartialMovie } = require("../schemas/movies");
+const { validateMovie, validatePartialMovie } = require("../validators/movies");
 const axios = require("axios");
 
 class MovieController {
