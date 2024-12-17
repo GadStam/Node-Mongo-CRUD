@@ -1,0 +1,58 @@
+[
+  {
+    "id": "1",
+    "titulo": "Titanic",
+    "genero": ["drama", "romance"],
+    "año": 1997,
+    "director": "James Cameron"
+  },
+  {
+    "id": "2",
+    "titulo": "The Dark Knight",
+    "genero": ["acción", "crimen", "drama"],
+    "año": 2008,
+    "director": "Christopher Nolan"
+  },
+  {
+    "id": "3",
+    "titulo": "Forrest Gump",
+    "genero": ["drama", "comedia"],
+    "año": 1994,
+    "director": "Robert Zemeckis"
+  },
+  {
+    "id": "4",
+    "titulo": "The Matrix",
+    "genero": ["ciencia ficción", "acción"],
+    "año": 1999,
+    "director": "The Wachowskis"
+  },
+  {
+    "id": "5",
+    "titulo": "Pulp Fiction",
+    "genero": ["crimen", "drama"],
+    "año": 1994,
+    "director": "Quentin Tarantino"
+  },
+  {
+    "id": "6",
+    "titulo": "La La Land",
+    "genero": ["musical", "romance"],
+    "año": 2016,
+    "director": "Damien Chazelle"
+  },
+  {
+    "id": "7",
+    "titulo": "Parasite",
+    "genero": ["drama", "thriller"],
+    "año": 2019,
+    "director": "Bong Joon-ho"
+  },
+  {
+    "id": "8",
+    "titulo": "Spirited Away",
+    "genero": ["animación", "fantasía", "aventura"],
+    "año": 2001,
+    "director": "Hayao Miyazaki"
+  }
+]
